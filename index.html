@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Desenvolvimento</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <form class="form-inline">
+                        <h3>Cadastrar Produto</h3>
+                            <label>Nome produto</label><br />
+                            <input type="text" class="form-control" id="nome" placeholder="Nome do produto" /><br /><br />
+
+                            <label>Fabricante Produto</label><br />
+                            <select class="form-control" id="fabricante" name="fabricante" onchange="categorias(this.id,'categoria')">
+                                <option>-</option>
+                                <option value="Sony">Sony</option>
+                                <option value="Microsoft">Microfost</option>
+                                <option value="Apple">Apple</option>
+                            </select><br /><br />
+
+                            <label>Categoria Produto</label><br />
+                            <select class="form-control" id="categoria" name="categoria" onchange="categorias()">
+                                <option>-</option>
+                            </select><br /><br />
+
+                            <label>Quantidade produto</label><br />
+                            <input type="number" class="form-control" id="qtd" /><br /><br />
+
+                            <label>Valor Unidade</label><br />
+                            <input type="text" class="form-control" id="val" /><br /><br />
+
+                            <button type="button" class="btn btn-primary" id="add" onclick="adicionar()">Adicionar produto</button>
+                        </form>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Lista de Produtos</h3>
+                        <div class="jumbotron">
+                            <table class="table table-striped" id="lista">
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <script type="text/javascript">
+        function adicionar(){
+            var nome = document.getElementById("nome").value;
+            var fabricante = document.getElementById("fabricante").value;
+            var categoria = document.getElementById("categoria").value;
+            var qtd = document.getElementById("qtd").value; 
+            var valor = document.getElementById("val").value;
+            var tabela = document.getElementById("lista").innerHTML;
+
+            tabela += "<tr><td>" + nome + "</td><td>" + fabricante + "</td><td>" + categoria + "</td><td>" + qtd + "</td><td>" + valor + "</td></td><button type='button' class='btn btn-danger' id='remover' onclick='remover()''>Deletar</button></td></tr>" 
+
+            document.getElementById("lista").innerHTML = tabela;
+        }
+
+        function categorias(s1,s2){
+            var s1 = document.getElementById(s1);
+            var s2 = document.getElementById(s2);
+            s2.innerHTML = "";
+            if(s1.value == "Sony"){
+                var optionArray = ["|","Categoria sony 1|Categoria sony 1","Categoria sony 2|Categoria sony 2"];
+            } else if(s1.value == "Microsoft"){
+                var optionArray = ["|","Categoria Microsoft 1|Categoria Microsoft 1","Categoria Microsoft 2|Categoria Microsoft 2"];
+            } else if(s1.value == "Apple"){
+                var optionArray = ["|","Categoria Apple 1|Categoria Apple 1","Categoria Apple 2|Categoria Apple 2"];
+            }
+            for(var option in optionArray){
+                var pair = optionArray[option].split("|");
+                var newOption = document.createElement("option");
+                newOption.value = pair[0];
+                newOption.innerHTML = pair[1];
+                s2.options.add(newOption);
+            }
+        }
+
+        function remover(){
+            var elem = document.getElementById("lista");
+            elem.remove();
+        }
+
+        
+    </script>
+
+</html>
